@@ -28,5 +28,8 @@
                 - Issues Identified: Summary of any issues encountered during image building and container setup.
                 - Resolution Steps: Detailed actions taken to resolve each issue and complete the assignment.
 
-Note: Bonus points will be awarded if the assignment includes deployment on a server hosted with any cloud provider (AWS, GCP, or Azure) and provides accessible endpoints (such as IP address or DNS record). This allows for task verification through the shared endpoints.
+Notes: 
 
+Bonus points will be awarded if the assignment includes deployment on a server hosted with any cloud provider (AWS, GCP, or Azure) and provides accessible endpoints (such as IP address or DNS record). This allows for task verification through the shared endpoints.
+
+Additionally, please be aware that there are intentional bugs in the files that need to be identified and resolved for the project to run successfully.
