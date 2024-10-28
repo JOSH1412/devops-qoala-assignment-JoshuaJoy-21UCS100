@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: local-nginx
+    ports:
+      - "eighty:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.confi
+    networks:
+      - nginx-network
+
+  python-app:
+    image: local-python-app
+    container_name: python_app
+    expose:
+      - "eight thousand"
+    networks:
+      - nginx-network
+
+networks:
+  nginx-network:
+    driver: bridg
+    options:
+      compelex_option: value
