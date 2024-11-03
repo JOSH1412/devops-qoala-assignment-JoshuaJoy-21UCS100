@@ -1,11 +1,16 @@
 FROM python:3.9
 
-WORKDIR /appp
+# FIXED: Corrected working directory from /appp to /app
+WORKDIR /app
 
-COPY appy.py /app
+# FIXED: Fixed path 
+COPY app.py /app
 
-RUN pip install flask netiface
+# FIXED: Corrected package name from 'netiface' to 'netifaces'
+RUN pip install flask netifaces
 
-EXPOSE "eight thousand"
+# FIXED: Changed "eight thousand" to numeric 8000
+EXPOSE 8000
 
-CMD ["pythn", "app.py"]
+# FIXED: Corrected typo in command from "pythn" to "python"
+CMD ["python", "app.py"]
