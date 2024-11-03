@@ -1,88 +1,101 @@
-# DevOps Assignment: Debugging and Running a Dockerized Application
 
-Welcome to your DevOps assignment! Your goal is to debug and deploy a Dockerized application. The steps below outline the tasks you’ll complete, including setup, debugging, running, testing, and submitting your work.
+# DevOps Assignment Report - Dockerized Web Application
 
-## Assignment Overview
+## Deployed the application on AWS EC2 instance. The IP endpoint is http://16.170.255.41/
 
-In this assignment, you’ll:
-1. Set up Docker and Docker Compose.
-2. Build Docker images and launch containers.
-3. Debug and resolve intentional errors in the code to ensure the application runs correctly.
-4. Verify the application in your browser.
-5. Document your process and submit your work.
+### 1. Issues Identified
+
+#### Python Dockerfile Issues:
+1. **Incorrect working directory path**: `/appp` instead of `/app`.
+2. **Invalid path in COPY command**: Incorrectly specifies the source or destination file.
+3. **Wrong package name**: `netiface` instead of `netifaces`.
+4. **Non-numeric port exposition**: Port specified as "eight thousand" instead of `8000`.
+5. **Command typo in CMD instruction**: `pythn` instead of `python`.
+
+#### Nginx Dockerfile Issues:
+1. **Invalid base image tag**: Uses `nginx:latests` instead of `nginx:latest`.
+2. **Incorrect file path in COPY instruction**: COPY source or destination path is incorrect.
+3. **Non-numeric port exposition**: Port specified as "eighty" instead of `80`.
+4. **Incorrect daemon configuration syntax**: Configuration syntax for daemon mode is incorrect.
+
+#### Nginx Configuration Issues:
+1. **Missing semicolon after `worker_processes auto`**: Causes configuration file syntax errors.
+2. **Incorrect directive names**:
+   - `worker_process` instead of `worker_processes`.
+   - `worker_connection` instead of `worker_connections`.
+3. **Typo in MIME types path**: Uses `mime.typess` instead of `mime.types`.
+4. **Missing 'e' in `default_type`**: `default_typ` should be `default_type`.
+
+#### Docker Compose Issues:
+1. **Invalid port mapping format**: Uses "eighty:80" instead of `80:80`.
+2. **Incorrect volume path**: Specifies `nginx.confi` instead of `nginx.conf`.
+3. **Non-numeric port exposition**: Port specified as "eight thousand" instead of `8000`.
+4. **Typo in network driver**: Uses `bridg` instead of `bridge`.
+5. **Unnecessary complex network options**: Simplification of network settings recommended.
+6. **Missing build contexts for services**: `build` context not set for services.
+7. **Missing dependency configuration**: Dependencies between services not configured.
 
 ---
 
-## Requirements
+### 2. Resolution Steps
 
-**Tools Needed:**
-- **System:** Use any laptop, PC, or cloud server.
-- **Tools:** Docker and Docker Compose must be installed and configured.
-
----
-
-## Steps
-
-### 1. Initial Setup
-1. **Clone the GitHub Repository:**
-   - Start by cloning the provided GitHub repository, which contains the `Dockerfiles`, `docker-compose.yml` file, and the application code.
+#### 1. Reviewing Dockerfiles
+   - **Objective:** Ensure syntax and paths were correct for successful image building.
+   - **Process:**
+     - Checked each line of the `Dockerfile` for typos and syntax errors.
+     - Verified paths in `WORKDIR` and `COPY` statements matched the project directory structure.
+     - Fixed typos, such as incorrect paths and misspelled package names.
    
-2. **Build Docker Images:**
-   - Build each Docker image locally using the provided Dockerfiles.
-   - Tag each image appropriately to be referenced by the `docker-compose.yml` file.
 
-### 2. Running the Docker Compose File
-1. **Start the Containers:**
-   - Use the provided `docker-compose.yml` file to launch all containers.
-   - **Note:** There are intentional errors in the code. Part of your assignment is to identify and fix these errors so the application runs correctly.
+#### 2. Debugging Nginx Configuration
+   - **Objective:** Ensure correct Nginx setup.
+   - **Process:**
+     - Reviewed `Dockerfile` and `nginx.conf` for syntax and path errors.
+     - Checked Nginx configurations for correct syntax in directives.
+   
 
-### 3. Debugging and Testing
-1. **Identify Issues:**
-   - Check the logs for any errors while building and running containers.
-   - Examine the application code, Dockerfiles, and `docker-compose.yml` file to identify intentional errors.
+#### 3. Docker Compose Configuration
+   - **Objective:** Ensure `docker-compose.yml` correctly launched containers with networking and dependencies.
+   - **Process:**
+     - Validated each service’s port mappings, paths, and network setup.
+     - Confirmed build contexts and dependency sequence.
+   
 
-2. **Resolve Errors:**
-   - Document the issues and explain your debugging steps.
-   - Apply necessary changes to the code, Dockerfiles, or configuration to resolve these errors.
+#### 4. Verifying Application Accessibility
+   - **Objective:** Confirmed application accessibility in a browser.
+   - **Process:**
+     - Launched containers and checked logs for any remaining issues.
+     - Checked application accessibility using public IP address.
+     - Verified Nginx and application logs.
+   
+---
 
-3. **Verify Website Access:**
-   - Open a web browser and access the application on `http://localhost` (or `http://<server-IP>` if hosted on a cloud server) to confirm it is running correctly.
-   - Check Nginx or other web server logs to confirm requests are being logged as expected.
 
-### 4. Submitting the Assignment
-1. **GitHub Repository:**
-   - Create a new GitHub repository and name it in this format: `devops-qoala-assignment-<name>-<rollnumber>`.
-   - Upload all relevant files (including the modified code, Dockerfiles, `docker-compose.yml`, and other configurations) to this repository.
-   - Grant access to `devops@qoala.id`. **Note:** Submissions without access granted will not be considered.
+### 3. AWS Deployment Steps for Dockerized Web Application
 
-2. **Screenshots:**
-   - Take a screenshot of the application running in the browser.
-   - Include a screenshot showing Nginx (or web server) access logs that confirm a successful request.
+1. **Launch EC2 Instance**:
+   - Chose an Ubuntu AMI and launched the EC2 instance.
 
-3. **Report:**
-   - Write a concise, one-page report that includes:
-     - **Issues Identified:** Summarize any errors encountered during image building, container setup, or application testing.
-     - **Resolution Steps:** Describe each action taken to resolve the issues and ensure the application runs correctly.
+2. **Connect to EC2**:
+   - Used SSH to connect.
+3. **Install Docker and Docker Compose**:
+   - Updated packages.
+   - Installed Docker.
+   - Installed Docker Compose.
+
+4. **Clone Application Repository**:
+   - Cloned app repository from GitHub.
+
+5. **Configure Security Group**:
+   - Added inbound rules to allow traffic.
+
+6. **Run Docker Compose**:
+   - Navigated to app directory.
+   - Started the containers using `docker-compose up -d`.
+
+7. **Access the Application**:
+   - The application is accessible via http://16.170.255.41/ .
 
 ---
 
-## Bonus Points
-
-### Cloud Deployment
-- For extra credit, deploy the application on a cloud server (AWS, GCP, or Azure) and provide an accessible endpoint, such as an IP address or DNS record.
-- This will allow your work to be verified through the shared endpoint.
-
----
-
-## Summary Checklist
-- Set up Docker and Docker Compose.
-- Clone and build Docker images.
-- Debug and fix issues in code, Dockerfiles, or `docker-compose.yml`.
-- Start containers and verify application accessibility on port 80.
-- Upload files to a new GitHub repository and grant access to `devops@qoala.id`.
-- Submit screenshots and a concise report of issues and solutions.
-- (Bonus) Deploy on a cloud provider and share endpoint details.
-
----
-
-Good luck, and happy debugging!
+This README provides a comprehensive overview of identified issues in the Docker configuration files and concise AWS deployment steps for accessing the Dockerized web application.
